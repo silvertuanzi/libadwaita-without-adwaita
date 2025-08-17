@@ -1,6 +1,6 @@
 pkgname=libadwaita-without-adwaita
 pkgver=1.7.6
-pkgrel=3
+pkgrel=4
 url="https://gnome.pages.gitlab.gnome.org/libadwaita"
 pkgdesc='libadwaita; Includes a patch to not overwrite the system theme. Because the maintainer likely abandoned the pkg'
 arch=('i686' 'x86_64' 'armv7h' 'armv6h' 'aarch64')
@@ -16,7 +16,7 @@ source=(
 sha256sums=('SKIP' 'SKIP')
 
 depends=(appstream fribidi glib2 glibc graphene gtk4 pango)
-makedepends=(meson gi-docgen sassc gobject-introspection vala pkg-config patch cmake libsass gcc)
+makedepends=(meson gi-docgen sassc gobject-introspection vala pkg-config patch cmake libsass gcc glib2-devel)
 
 build() {
   cd "$srcdir/libadwaita-$pkgver"

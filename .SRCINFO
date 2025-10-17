@@ -1,5 +1,6 @@
 pkgbase = libadwaita-without-adwaita
 	pkgdesc = libadwaita; Includes a patch to not overwrite the system theme. Because the maintainer likely abandoned the pkg
+  epoch = 1
 	pkgver = 1.8.1
 	pkgrel = 2
 	url = https://gnome.pages.gitlab.gnome.org/libadwaita

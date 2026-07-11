@@ -1,0 +1,34 @@
+name: Build Arch Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Build inside Arch docker
+        run: |
+          docker run --rm -v "$PWD:/src" archlinux/archlinux:base-devel bash -c "
+            pacman -Syu --noconfirm appstream fribidi glib2 glibc graphene gtk4 pango meson gi-docgen sassc gobject-introspection vala pkg-config patch cmake libsass gcc glib2-devel --needed &&
+            cp /src/.github/makepkg.conf /etc/makepkg.conf.d/ &&
+            useradd -m builder && chown -R builder:builder /src &&
+            su - builder -c 'cd /src && makepkg -C'
+          "
+
+      - name: Upload pkg to release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: ./*.pkg.tar.zst
+          overwrite_files: true
+          body: "Automated build for tag ${{ github.ref_name }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

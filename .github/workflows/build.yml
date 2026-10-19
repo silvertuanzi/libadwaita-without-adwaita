@@ -18,7 +18,7 @@ jobs:
       - name: Build inside Arch docker
         run: |
           docker run --rm -v "$PWD:/src" archlinux/archlinux:base-devel bash -c "
-            pacman -Syu --noconfirm appstream fribidi glib2 glibc graphene gtk4 pango meson gi-docgen sassc gobject-introspection vala pkg-config patch cmake libsass gcc glib2-devel --needed &&
+            pacman -Syu --noconfirm ministream fribidi glib2 glibc graphene gtk4 pango meson gi-docgen sassc gobject-introspection vala pkg-config patch cmake libsass gcc glib2-devel --needed &&
             cp /src/.github/makepkg.conf /etc/makepkg.conf.d/ &&
             useradd -m builder && chown -R builder:builder /src &&
             su - builder -c 'cd /src && makepkg -C'
